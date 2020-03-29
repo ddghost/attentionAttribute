@@ -15,7 +15,7 @@ import model as models
 from utils.datasets import Get_Dataset
 
 parser = argparse.ArgumentParser(description='Pedestrian Attribute Framework')
-parser.add_argument('--experiment', default='rap', type=str, required=True, help='(default=%(default)s)')
+parser.add_argument('--experiment', default='river', type=str, required=True, help='(default=%(default)s)')
 parser.add_argument('--approach', default='inception_iccv', type=str, required=True, help='(default=%(default)s)')
 parser.add_argument('--epochs', default=60, type=int, required=False, help='(default=%(default)d)')
 parser.add_argument('--batch_size', default=32, type=int, required=False, help='(default=%(default)d)')
@@ -42,7 +42,7 @@ EPS = 1e-12
 #####################################################################################################
 
 
-def main():
+def main(datasetPath):
     global args, best_accu
     args = parser.parse_args()
 
@@ -53,15 +53,15 @@ def main():
     print('=' * 100)
 
     # Data loading code
-    train_dataset, val_dataset, attr_num, description = Get_Dataset(args.experiment, args.approach)
-
+    train_dataset, val_dataset, attr_num, description = Get_Dataset(args.experiment, datasetPath)
+    return
     train_loader = torch.utils.data.DataLoader(
         train_dataset,
         batch_size=args.batch_size, shuffle=True, num_workers=4, pin_memory=True)
 
     val_loader = torch.utils.data.DataLoader(
         val_dataset,
-        batch_size=32, shuffle=False, num_workers=4, pin_memory=True)
+        batch_size=args.batch_size*4, shuffle=False, num_workers=4, pin_memory=True)
 
     # create model
     model = models.__dict__[args.approach](pretrained=True, num_classes=attr_num)
@@ -512,4 +512,8 @@ class Weighted_BCELoss(object):
         return torch.neg(torch.mean(loss))
 
 if __name__ == '__main__':
-    main()
+    datasetPath = '../dataset/IMG_224'
+    for k in range(5):
+        splitDatasetPath = os.path.join(datasetPath, 'splitDataset_k'.format(k)) 
+        print(splitDatasetPath)
+        main(splitDatasetPath)
