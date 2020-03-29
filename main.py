@@ -322,7 +322,7 @@ def test(val_loader, model, attr_num, description):
 
 def save_checkpoint(state, epoch, prefix, filename='.pth.tar'):
     """Saves checkpoint to disk"""
-    directory = "your_path" + args.experiment + '/' + args.approach + '/'
+    directory = "models" + args.experiment + '/' + args.approach + '/'
     if not os.path.exists(directory):
         os.makedirs(directory)
     if prefix == '':
