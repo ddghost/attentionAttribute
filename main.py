@@ -107,7 +107,7 @@ def main(datasetPath):
     if args.evaluate:
         test(val_loader, model, attr_num, description)
         return
-    accu = validate(val_loader, model, criterion, epoch)
+    accu = validate(val_loader, model, criterion, 0)
     print(accu,'!!!!!')
     for epoch in range(args.start_epoch, args.epochs):
         adjust_learning_rate(optimizer, epoch, args.decay_epoch)
