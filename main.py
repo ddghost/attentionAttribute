@@ -54,7 +54,7 @@ def main(datasetPath):
 
     # Data loading code
     train_dataset, val_dataset, attr_num, description = Get_Dataset(args.experiment, datasetPath)
-    return
+    
     train_loader = torch.utils.data.DataLoader(
         train_dataset,
         batch_size=args.batch_size, shuffle=True, num_workers=4, pin_memory=True)
