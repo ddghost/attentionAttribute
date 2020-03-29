@@ -116,8 +116,8 @@ def main(datasetPath):
 
         # evaluate on validation set
         accu = validate(val_loader, model, criterion, epoch)
-
-        test(val_loader, model, attr_num, description)
+        if( epoch == 0 or (epoch+1) % 5 == 0)
+            test(val_loader, model, attr_num, description)
 
         # remember best Accu and save checkpoint
         is_best = accu > best_accu
