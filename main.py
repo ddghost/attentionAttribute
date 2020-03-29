@@ -365,6 +365,7 @@ def adjust_learning_rate(optimizer, epoch, decay_epoch):
 
 
 def accuracy(output, target):
+    '''
     batch_size = target.size(0)
     attr_num = target.size(1)
 
@@ -379,6 +380,20 @@ def accuracy(output, target):
     for k in range(attr_num):
         res.append(1.0*sum(correct[:,k]) / batch_size)
     return sum(res) / attr_num
+    '''
+    batch_size = target.size(0)
+    attr_num = target.size(1)
+
+    output = torch.sigmoid(output).cpu().numpy()
+    output = np.where(output > 0.5, 1, 0)
+    pred = torch.from_numpy(output).long()
+    target = target.cpu().long()
+    correct = pred.eq(target)
+    correct = correct.numpy()
+    correctNum = 0
+    for batchIndex in range(batch_size):
+        correctNum += (correct[batchIndex].sum() == attr_num)
+    return correctNum
 
 
 class Weighted_BCELoss(object):
