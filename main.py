@@ -129,7 +129,7 @@ def main(datasetPath):
                 'state_dict': model.state_dict(),
                 'best_accu': best_accu,
             }, epoch+1, args.prefix)
-    print('best_accu', best_accu)
+    print('best_accu ', best_accu)
 
 def train(train_loader, model, criterion, optimizer, epoch):
     """Train for one epoch on the training set"""
