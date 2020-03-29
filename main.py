@@ -15,8 +15,8 @@ import model as models
 from utils.datasets import Get_Dataset
 
 parser = argparse.ArgumentParser(description='Pedestrian Attribute Framework')
-parser.add_argument('--experiment', default='river', type=str, required=True, help='(default=%(default)s)')
-parser.add_argument('--approach', default='inception_iccv', type=str, required=True, help='(default=%(default)s)')
+parser.add_argument('--experiment', default='river', type=str, required=False, help='(default=%(default)s)')
+parser.add_argument('--approach', default='inception_iccv', type=str, required=False, help='(default=%(default)s)')
 parser.add_argument('--epochs', default=60, type=int, required=False, help='(default=%(default)d)')
 parser.add_argument('--batch_size', default=32, type=int, required=False, help='(default=%(default)d)')
 parser.add_argument('--lr', '--learning-rate', default=0.0001, type=float, required=False, help='(default=%(default)f)')
@@ -514,6 +514,6 @@ class Weighted_BCELoss(object):
 if __name__ == '__main__':
     datasetPath = '../dataset/IMG_224'
     for k in range(5):
-        splitDatasetPath = os.path.join(datasetPath, 'splitDataset_k'.format(k)) 
+        splitDatasetPath = os.path.join(datasetPath, 'splitDataset_k{}'.format(k)) 
         print(splitDatasetPath)
         main(splitDatasetPath)
