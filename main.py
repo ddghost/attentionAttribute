@@ -61,7 +61,7 @@ def main(datasetPath):
 
     val_loader = torch.utils.data.DataLoader(
         val_dataset,
-        batch_size=args.batch_size*4, shuffle=False, num_workers=4, pin_memory=True)
+        batch_size=args.batch_size, shuffle=False, num_workers=4, pin_memory=True)
 
     # create model
     model = models.__dict__[args.approach](pretrained=True, num_classes=attr_num)
