@@ -11,7 +11,7 @@ def inception_iccv(pretrained=True, debug=False, **kwargs):
         pretrained model: 'https://github.com/Cadene/pretrained-models.pytorch/blob/master/pretrainedmodels/models/bninception.py'
     """
     if pretrained:
-        pretrained_dict = torch.load('pretrained/bn_inception-52deb4733.pth')
+        pretrained_dict = torch.load('../pretrained/bn_inception-52deb4733.pth')
         model_dict = model.state_dict()
         new_dict = {}
         for k,_ in model_dict.items():
@@ -93,7 +93,7 @@ class InceptionNet(nn.Module):
         super(InceptionNet, self).__init__()
         self.num_classes = num_classes
         self.main_branch = BNInception()
-        self.global_pool = nn.AvgPool2d((8,4), stride=1, padding=0, ceil_mode=True, count_include_pad=True)
+        self.global_pool = nn.AdaptiveAvgPool2d(1)
         self.finalfc = nn.Linear(1024, num_classes)
 
         self.st_3b = SpatialTransformBlock(num_classes, 32, 256*3)
