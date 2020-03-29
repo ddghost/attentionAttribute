@@ -501,7 +501,7 @@ class Weighted_BCELoss(object):
                                         0.0838,
                                         0.4605,
                                         0.0124]).cuda()
-        #self.weights = None
+        self.weights = None
 
     def forward(self, output, target, epoch):
         if self.weights is not None:
@@ -515,5 +515,4 @@ if __name__ == '__main__':
     datasetPath = '../dataset/IMG_224'
     for k in range(5):
         splitDatasetPath = os.path.join(datasetPath, 'splitDataset_k{}'.format(k)) 
-        print(splitDatasetPath)
         main(splitDatasetPath)
