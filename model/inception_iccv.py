@@ -45,14 +45,14 @@ class SpatialTransformBlock(nn.Module):
         self.num_classes = num_classes
         self.spatial = pooling_size
 
-        self.global_pool = nn.AvgPool2d((pooling_size, pooling_size//2), stride=1, padding=0, ceil_mode=True, count_include_pad=True)
+        self.global_pool = nn.AdaptiveAvgPool2d(1)
 
         self.gap_list = nn.ModuleList()
         self.fc_list = nn.ModuleList()
         self.att_list = nn.ModuleList()
         self.stn_list = nn.ModuleList()
         for i in range(self.num_classes):
-            self.gap_list.append(nn.AvgPool2d((pooling_size, pooling_size//2), stride=1, padding=0, ceil_mode=True, count_include_pad=True))
+            self.gap_list.append(nn.AdaptiveAvgPool2d(1))
             self.fc_list.append(nn.Linear(channels, 1))
             self.att_list.append(ChannelAttn(channels))
             self.stn_list.append(nn.Linear(channels, 4))
