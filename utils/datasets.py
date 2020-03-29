@@ -178,7 +178,7 @@ def Get_Dataset(experiment, rootPath):
     valRoot = os.path.join(rootPath,'val')
     normalize = transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
     transform_train = transforms.Compose([
-        transforms.Resize(size=(256, 128)),
+        transforms.Resize(size=(448, 448)),
         transforms.RandomHorizontalFlip(),
         # transforms.ColorJitter(hue=.05, saturation=.05),
         # transforms.RandomRotation(20, resample=Image.BILINEAR),
@@ -186,7 +186,7 @@ def Get_Dataset(experiment, rootPath):
         normalize
         ])
     transform_test = transforms.Compose([
-        transforms.Resize(size=(256, 128)),
+        transforms.Resize(size=(448, 448)),
         transforms.ToTensor(),
         normalize
         ])
