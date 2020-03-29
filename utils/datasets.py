@@ -69,8 +69,8 @@ description['pa100k'] = ['Female',
                         'boots']
 
 description['river'] = ['pollutedRiver',
-                        'normalRiver',
                         'dryRiver',
+                        'normalRiver',
                         'noRiver',
                         'building',
                         'plant',

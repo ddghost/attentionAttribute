@@ -501,7 +501,15 @@ class Weighted_BCELoss(object):
                                         0.0838,
                                         0.4605,
                                         0.0124]).cuda()
-        self.weights = None
+        elif experiment == 'river':
+            self.weights = torch.Tensor([0.0468,
+                                        0.1736,
+                                        0.7662,
+                                        0.0132,
+                                        0.8514,
+                                        0.9937,
+                                        0.0875,]).cuda()
+
 
     def forward(self, output, target, epoch):
         if self.weights is not None:
