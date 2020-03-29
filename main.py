@@ -190,42 +190,43 @@ def validate(val_loader, model, criterion, epoch):
     model.eval()
 
     end = time.time()
-    for i, _ in enumerate(val_loader):
-        input, target = _
-        target = target.cuda(non_blocking=True)
-        input = input.cuda(non_blocking=True)
-        output = model(input)
+    with torch.no_grad():
+        for i, _ in enumerate(val_loader):
+            input, target = _
+            target = target.cuda(non_blocking=True)
+            input = input.cuda(non_blocking=True)
+            output = model(input)
 
-        bs = target.size(0)
+            bs = target.size(0)
 
-        if type(output) == type(()) or type(output) == type([]):
-            loss_list = []
-            # deep supervision
-            for k in range(len(output)):
-                out = output[k]
-                loss_list.append(criterion.forward(torch.sigmoid(out), target, epoch))
-            loss = sum(loss_list)
-            # maximum voting
-            output = torch.max(torch.max(torch.max(output[0],output[1]),output[2]),output[3])
-        else:
-            loss = criterion.forward(torch.sigmoid(output), target, epoch)
+            if type(output) == type(()) or type(output) == type([]):
+                loss_list = []
 
-        # measure accuracy and record loss
-        accu = accuracy(output.data, target)
-        losses.update(loss.data, bs)
-        top1.update(accu, bs)
+                for k in range(len(output)):
+                    out = output[k]
+                    loss_list.append(criterion.forward(torch.sigmoid(out), target, epoch))
+                loss = sum(loss_list)
+                # maximum voting
+                output = torch.max(torch.max(torch.max(output[0],output[1]),output[2]),output[3])
+            else:
+                loss = criterion.forward(torch.sigmoid(output), target, epoch)
 
-        # measure elapsed time
-        batch_time.update(time.time() - end)
-        end = time.time()
+            # measure accuracy and record loss
+            accu = accuracy(output.data, target)
+            losses.update(loss.data, bs)
+            top1.update(accu, bs)
 
-        if i % args.print_freq == 0:
-            print('Test: [{0}/{1}]\t'
-                  'Time {batch_time.val:.3f} ({batch_time.avg:.3f})\t'
-                  'Loss {loss.val:.4f} ({loss.avg:.4f})\t'
-                  'Accu {top1.val:.3f} ({top1.avg:.3f})'.format(
-                      i, len(val_loader), batch_time=batch_time, loss=losses,
-                      top1=top1))
+            # measure elapsed time
+            batch_time.update(time.time() - end)
+            end = time.time()
+
+            if i % args.print_freq == 0:
+                print('Test: [{0}/{1}]\t'
+                      'Time {batch_time.val:.3f} ({batch_time.avg:.3f})\t'
+                      'Loss {loss.val:.4f} ({loss.avg:.4f})\t'
+                      'Accu {top1.val:.3f} ({top1.avg:.3f})'.format(
+                          i, len(val_loader), batch_time=batch_time, loss=losses,
+                          top1=top1))
 
     print(' * Accu {top1.avg:.3f}'.format(top1=top1))
     return top1.avg
