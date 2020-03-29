@@ -393,6 +393,9 @@ def accuracy(output, target):
     correctNum = 0
     for batchIndex in range(batch_size):
         correctNum += (correct[batchIndex].sum() == attr_num)
+    for k in range(attr_num):
+        res.append(1.0*sum(correct[:,k]) / batch_size)
+    print(correctNum, sum(res) / attr_num)
     return correctNum
 
 
