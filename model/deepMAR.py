@@ -4,14 +4,14 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.nn.init as init
-from .resnet import *
+import models.resnet as resnet
 
 __all__ = ['DeepMAR_ResNet50']
 
 class DeepMAR_ResNet50(nn.Module):
     def __init__(self, net='resnet50', num_classes=10, pretrained=True):
         super(DeepMAR_ResNet50, self).__init__()
-        self.num_classes = 10
+        self.num_classes = num_classes
 
 
         self.drop_pool5 = True 
