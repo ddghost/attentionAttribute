@@ -6,7 +6,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 
-import models.resnet as resnet
+import model.resnet as resnet
 from models.inception import inception_v3, BasicConv2d
 
 __all__ = ['MBCNN']
