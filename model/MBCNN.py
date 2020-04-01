@@ -5,7 +5,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-import models.vgg as vgg
+
 import models.resnet as resnet
 from models.inception import inception_v3, BasicConv2d
 
