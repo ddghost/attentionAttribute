@@ -74,9 +74,9 @@ class BAP(nn.Module):
 
 
 # WS-DAN: Weakly Supervised Data Augmentation Network for FGVC
-class MBCNN(nn.Module):
+class MSCNN(nn.Module):
     def __init__(self, num_classes, M=32, net='resnet50', pretrained=False, layerNum=4, lastLayerBlockNum=-1,useMultiScale=True):
-        super(MBCNN, self).__init__()
+        super(MSCNN, self).__init__()
 
         self.M = M
         self.net = net
