@@ -136,10 +136,8 @@ class MSCNN(nn.Module):
         '''
         self.fc = nn.Linear(self.M * self.num_features, num_classes, bias=False)
 
-        self.classSetting = classSetting
-        
 
-        logging.info('WSDAN: using {} as feature extractor, classSetting: {}, num_attentions: {}'.format(net, self.classSetting, self.M))
+        logging.info('MSCNN: using {} as feature extractor, classSetting: {}, num_attentions: {}'.format(net, self.classSetting, self.M))
 
         
 
