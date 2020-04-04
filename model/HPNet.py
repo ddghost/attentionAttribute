@@ -133,7 +133,20 @@ class Inception3(nn.Module):
         if self.training and self.aux_logits:
             return gg, aux
         return gg
+    def load_state_dict(self, state_dict, strict=True):
+        model_dict = self.state_dict()
+        pretrained_dict = {k: v for k, v in state_dict.items()
+                           if k in model_dict and model_dict[k].size() == v.size()}
 
+        if len(pretrained_dict) == len(state_dict):
+            logging.info('%s: All params loaded' % type(self).__name__)
+        else:
+            logging.info('%s: Some params were not loaded:' % type(self).__name__)
+            not_loaded_keys = [k for k in state_dict.keys() if k not in pretrained_dict.keys()]
+            logging.info(('%s, ' * (len(not_loaded_keys) - 1) + '%s') % tuple(not_loaded_keys))
+
+        model_dict.update(pretrained_dict)
+        super(WSDAN_Mutil, self).load_state_dict(model_dict)
 
 class InceptionA(nn.Module):
 
