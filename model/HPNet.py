@@ -146,7 +146,7 @@ class Inception3(nn.Module):
             logging.info(('%s, ' * (len(not_loaded_keys) - 1) + '%s') % tuple(not_loaded_keys))
 
         model_dict.update(pretrained_dict)
-        super(WSDAN_Mutil, self).load_state_dict(model_dict)
+        super(Inception3, self).load_state_dict(model_dict)
 
 class InceptionA(nn.Module):
 
@@ -321,17 +321,17 @@ class InceptionAux(nn.Module):
         self.fc.stddev = 0.001
 
     def forward(self, x):
-        # 17 x 17 x 768
+
         x = F.avg_pool2d(x, kernel_size=5, stride=3)
-        # 5 x 5 x 768
+
         x = self.conv0(x)
-        # 5 x 5 x 128
+
         x = self.conv1(x)
-        # 1 x 1 x 768
+
         x = x.view(x.size(0), -1)
-        # 768
+
         x = self.fc(x)
-        # 1000
+
         return x
 
 
