@@ -64,6 +64,7 @@ def main(datasetPath):
         batch_size=args.batch_size, shuffle=False, num_workers=4, pin_memory=True)
 
     # create model
+   
     model = models.__dict__[args.approach](pretrained=True, num_classes=attr_num)
 
     # get the number of model parameters
@@ -527,7 +528,7 @@ class Weighted_BCELoss(object):
                                         0.8514,
                                         0.9937,
                                         0.0875,]).cuda()
-
+            self.weights = torch.exp(-self.weights)
 
     def forward(self, output, target, epoch):
         if self.weights is not None:
