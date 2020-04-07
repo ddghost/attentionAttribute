@@ -3,3 +3,7 @@ from .deepMAR import *
 from .resnet import *
 from .MSCNN import *
 from .HPNet import *
+from .AF_1 import *
+from .AF_2 import *
+from .AF_3 import *
+from .Incep import *
