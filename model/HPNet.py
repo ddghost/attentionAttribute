@@ -1,10 +1,10 @@
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-import Incep
-import AF_1
-import AF_2
-import AF_3
+from .Incep import *
+from AF_1 import *
+from AF_2 import *
+from AF_3 import *
 __all__ = ['HP']
 class HP(nn.Module):
 
