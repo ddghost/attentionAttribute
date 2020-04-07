@@ -8,9 +8,9 @@ import model.AF_3
 __all__ = ['HP']
 class HP(nn.Module):
 
-    def __init__(self,num_classes = 26):
+    def __init__(self,num_classes = 26,pretrained=False):
         super(HP,self).__init__()
-        self.MNet = Incep.Inception3(nfc = True)
+        self.MNet = Incep.inception_v3(nfc = True,pretrained=pretrained)
         self.AF1 = AF_1.AF1(ret = True)
         self.AF2 = AF_2.AF2(ret = True)
         self.AF3 = AF_3.AF3(ret = True)
