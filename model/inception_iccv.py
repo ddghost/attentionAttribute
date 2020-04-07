@@ -58,8 +58,8 @@ class SpatialTransformBlock(nn.Module):
             self.stn_list.append(nn.Linear(channels, 4))
 
     def stn(self, x, theta):
-        grid = F.affine_grid(theta, x.size())
-        x = F.grid_sample(x, grid, padding_mode='border')
+        grid = F.affine_grid(theta, x.size(),align_corners=True)
+        x = F.grid_sample(x, grid, padding_mode='border',align_corners=True)
         return x.cuda()
 
     def transform_theta(self, theta_i, region_idx):
