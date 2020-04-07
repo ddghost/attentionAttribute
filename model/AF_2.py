@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-import Incep
+import model.Incep as Incep
 import matplotlib.pyplot as plt
 from scipy import misc 
 class AF2(nn.Module):
